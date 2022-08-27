@@ -58,7 +58,7 @@ def get_weather(region):
     temp = response["now"]["temp"] + u"\N{DEGREE SIGN}" + "C"
     # 当前风向
     wind_dir = response["now"]["windDir"]
-    return weather, temp, wind_dir, temperature
+    return weather, temp, wind_dir
     # 当前最高气温
     max_temperature = response["daily"][0]["temperatureMax"] + u"\N{DEGREE SIGN}" + "C"
     # 当前最低气温
