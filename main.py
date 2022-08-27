@@ -55,14 +55,14 @@ def get_weather(region):
     # 当前天气
     weather = response["now"]["text"]
     # 当前温度
-    temperature = response["now"]["temperature"] + u"\N{DEGREE SIGN}" + "C"
+    temp = response["now"]["temp"] + u"\N{DEGREE SIGN}" + "C"
     # 当前风向
     wind_dir = response["now"]["windDir"]
     return weather, temp, wind_dir
     # 当前最高气温
-    max_temperature = response["daily"][0]["temperatureMax"] + u"\N{DEGREE SIGN}" + "C"
+    max_temp = response["daily"][0]["tempMax"] + u"\N{DEGREE SIGN}" + "C"
     # 当前最低气温
-    min_temperature = response["daily"][0]["temperatureMin"] + u"\N{DEGREE SIGN}" + "C"
+    min_temp = response["daily"][0]["tempMin"] + u"\N{DEGREE SIGN}" + "C"
 
  
  
@@ -120,7 +120,7 @@ def get_ciba():
     return note_ch, note_en
  
  
-def send_message(to_user, access_token, region_name, weather, temperature, wind_dir, note_ch, note_en):
+def send_message(to_user, access_token, region_name, weather, temp, wind_dir, note_ch, note_en):
     url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}".format(access_token)
     week_list = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
     year = localtime().tm_year
@@ -151,8 +151,8 @@ def send_message(to_user, access_token, region_name, weather, temperature, wind_
                 "value": weather,
                 "color": get_color()
             },
-            "temperature": {
-                "value": temperature,
+            "temp": {
+                "value": temp,
                 "color": get_color()
             },
             "wind_dir": {
@@ -215,7 +215,7 @@ if __name__ == "__main__":
     users = config["user"]
     # 传入地区获取天气信息
     region = config["region"]
-    weather, temperature, wind_dir = get_weather(region)
+    weather, temp, wind_dir = get_weather(region)
     note_ch = config["note_ch"]
     note_en = config["note_en"]
     if note_ch == "" and note_en == "":
@@ -223,5 +223,5 @@ if __name__ == "__main__":
         note_ch, note_en = get_ciba()
     # 公众号推送消息
     for user in users:
-        send_message(user, accessToken, region, weather, temperature, wind_dir, note_ch, note_en)
+        send_message(user, accessToken, region, weather, tempe, wind_dir, note_ch, note_en)
     os.system("pause")
