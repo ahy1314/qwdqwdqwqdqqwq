@@ -59,6 +59,11 @@ def get_weather(region):
     # 风向
     wind_dir = response["now"]["windDir"]
     return weather, temp, wind_dir
+    # 最高气温
+    max_temp = response["daily"][0]["tempMax"] + u"\N{DEGREE SIGN}" + "C"
+    # 最低气温
+    min_temp = response["daily"][0]["tempMin"] + u"\N{DEGREE SIGN}" + "C"
+
  
  
 def get_birthday(birthday, year, today):
